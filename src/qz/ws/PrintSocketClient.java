@@ -328,9 +328,10 @@ public class PrintSocketClient {
                 sendResult(session, UID, UsbUtilities.getInterfaceEndpointsJSON(vendorId, productId, UsbUtilities.hexToByte(params.getString("interface"))));
                 break;
             case HID_LIST_DEVICES:
-                sendResult(session, UID, HidUtilities.getHidDevicesJSON());
+                sendResult(session, UID, JHidUtilities.getHidDevicesJSON());
                 break;
             case HID_START_LISTENING:
+                //FIXME - still using hid4java library
                 if (!connection.isListening()) {
                     connection.startListening(new HidListener(session));
                     sendResult(session, UID, null);
@@ -354,7 +355,7 @@ public class PrintSocketClient {
                     if (call == Method.USB_CLAIM_DEVICE) {
                         device = new UsbIO(vendorId, productId, UsbUtilities.hexToByte(params.optString("interface")));
                     } else {
-                        device = new HidIO(vendorId, productId);
+                        device = new JHidIO(vendorId, productId);
                     }
 
                     if (session.isOpen()) {
