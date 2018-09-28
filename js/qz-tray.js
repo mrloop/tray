@@ -1937,14 +1937,14 @@ var qz = (function() {
         version: _qz.VERSION
     };
 
-})();
+});
 
 
 (function() {
     if (typeof define === 'function' && define.amd) {
         define(qz);
     } else if (typeof exports === 'object') {
-        module.exports = qz;
+        module.exports = qz();
         try {
             var crypto = require('crypto');
             qz.api.setSha256Type(function(data) {
@@ -1953,6 +1953,6 @@ var qz = (function() {
         }
         catch(ignore) {}
     } else {
-        window.qz = qz;
+        window.qz = qz();
     }
 })();
